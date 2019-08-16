@@ -247,5 +247,11 @@ class scalaTest extends FunSpec with BeforeAndAfterAll {
         val resultSize = RangeQuery.SpatialRangeQuery(objectRDD, rangeQueryWindow, false, true).count
       }
     }
+
+    it("should pass allow for spatial partitioning on a single geometry") {
+      val objectRDD = new PointRDD(sc, PointRDDInputLocation, PointRDDOffset, PointRDDSplitter, false).take(1)
+      objectRDD.analyze()
+      objectRDD.spatialPartitioning(GridType.KDBTree)
+    }
   }
 }
