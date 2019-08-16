@@ -52,16 +52,17 @@ public class RDDSampleUtils
             return givenSampleNumbers;
         }
 
-        // Make sure that number of records >= 2 * number of partitions
-        if (totalNumberOfRecords < 2 * numPartitions) {
-            throw new IllegalArgumentException("[GeoSpark] Number of partitions " + numPartitions + " cannot be larger than half of total records num " + totalNumberOfRecords);
-        }
-
         if (totalNumberOfRecords < 1000) {
             return (int) totalNumberOfRecords;
         }
 
         final int minSampleCnt = numPartitions * 2;
+
+        // Make sure that number of records >= 2 * number of partitions
+        if (totalNumberOfRecords < minSampleCnt) {
+            throw new IllegalArgumentException("[GeoSpark] Number of partitions " + numPartitions + " cannot be larger than half of total records num " + totalNumberOfRecords);
+        }
+
         return (int) Math.max(minSampleCnt, Math.min(totalNumberOfRecords / 100, Integer.MAX_VALUE));
     }
 }
