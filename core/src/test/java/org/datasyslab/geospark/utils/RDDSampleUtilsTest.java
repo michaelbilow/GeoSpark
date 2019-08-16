@@ -56,9 +56,9 @@ public class RDDSampleUtilsTest
     @Test
     public void testTooManyPartitions()
     {
-        assertFailure(505, 999);
-        assertFailure(505, 1000);
-        assertFailure(10, 1000, 2100);
+        assertFailure(5050, 9999);
+        assertFailure(5050, 10000);
+        assertFailure(10, 10000, 21000);
     }
 
     private void assertFailure(int numPartitions, long totalNumberOfRecords)
